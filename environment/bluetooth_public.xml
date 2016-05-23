@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<dhc:dogHomeConfiguration xmlns:dhc="http://elite.polito.it/dogHomeConfiguration">
+	<dhc:buildingEnvironment>
+		<dhc:building id="DogHome">
+			<dhc:flat id="Home" class="Flat">
+				<dhc:room id="TestRoom" class="StorageRoom">
+					<dhc:ceiling id="ceiling" class="Ceiling" />
+					<dhc:floor id="floor" class="Floor" />
+					<dhc:wall id="wall" class="Wall" />
+				</dhc:room>
+			</dhc:flat>
+		</dhc:building>
+	</dhc:buildingEnvironment>
+	<dhc:controllables>
+		<dhc:device class="BluetoothAdapter" id="onboard-ble"
+			domoticSystem="Bluetooth+LE">
+			<dhc:description>The on-board Bluetooth 4.0 (LE) adapter
+			</dhc:description>
+			<dhc:isIn>TestRoom</dhc:isIn>
+			<dhc:param name="macAddress" value="[Adapter Mac Address]" />
+			<dhc:controlFunctionality class="DiscoveryFunctionality">
+				<dhc:commands>
+					<dhc:command class="StartDiscoveryCommand" name="StartDiscoveryCommand_onboard-ble"
+						id="StartDiscoveryCommand_onboard-ble">
+						<dhc:param name="realCommandName" value="startDiscovery" />
+					</dhc:command>
+					<dhc:command class="StopDiscoveryCommand" name="StopDiscoveryCommand_onboard-ble"
+						id="StopDiscoveryCommand_onboard-ble">
+						<dhc:param name="realCommandName" value="stopDiscovery" />
+					</dhc:command>
+				</dhc:commands>
+			</dhc:controlFunctionality>
+			<dhc:notificationFunctionality
+				class="DeviceDiscoveryNotificationFunctionality">
+				<dhc:notifications>
+					<dhc:notification class="DeviceDiscoveredNotification"
+						id="DeviceDiscoveredNotification_onboard-ble">
+						<dhc:param name="nParams" value="3" />
+						<dhc:param name="notificationName" value="discoveredDvicee" />
+						<dhc:param name="notificationParamName" value="discoveredDeviceMac" />
+						<dhc:param name="notificationParamName" value="discoveredDeviceName" />
+						<dhc:param name="notificationParamName" value="discoveredDeviceRSSI" />
+					</dhc:notification>
+				</dhc:notifications>
+			</dhc:notificationFunctionality>
+			<dhc:state class="DiscoveryState">
+				<dhc:statevalues>
+					<dhc:statevalue class="ActiveDiscoveryStateValue"
+						name="ActiveDiscoveryStateValue_onboard-ble">
+						<dhc:param name="realStateValue" value="searching" />
+					</dhc:statevalue>
+					<dhc:statevalue class="IdleStateValue" name="IdleStateValue_onboard-ble">
+						<dhc:param name="realStateValue" value="idle" />
+					</dhc:statevalue>
+				</dhc:statevalues>
+			</dhc:state>
+		</dhc:device>
+		<dhc:device class="SingleTemperatureSensor" id="SingleTemperatureSensor_CC2650_1"
+			domoticSystem="Bluetooth+LE" gateway="onboard-ble">
+			<dhc:description>CC2650 IR Temperature sensor - TMP007
+			</dhc:description>
+			<dhc:isIn>TestRoom</dhc:isIn>
+			<dhc:param name="macAddress" value="[Sensor Mac Address]" />
+			<dhc:controlFunctionality class="TemperatureMeasurementFunctionality">
+				<dhc:commands>
+					<dhc:command class="GetTemperatureCommand"
+						name="GetTemperatureCommand_SingleTemperatureSensor_CC2650_1" id="GetTemperatureCommand_SingleTemperatureSensor_CC2650_1">
+						<dhc:param name="realCommandName" value="getTemperature" />
+						<dhc:param name="returnType" value="Measure" />
+					</dhc:command>
+				</dhc:commands>
+			</dhc:controlFunctionality>
+			<dhc:notificationFunctionality
+				class="TemperatureMeasurementNotificationFunctionality">
+				<dhc:notifications>
+					<dhc:notification class="TemperatureMeasurementNotification"
+						id="TemperatureMeasurementNotification_SingleTemperatureSensor_CC2650_1">
+						<dhc:param name="nParams" value="2" />
+						<dhc:param name="notificationName" value="newTemperatureValue" />
+						<dhc:param name="unitOfMeasure" value="C" />
+						<dhc:param name="notificationParamName" value="temperatureValue"
+							type="Measure" />
+						<dhc:param name="serviceUUID" value="f000aa00-0451-4000-b000-000000000000" />
+						<dhc:param name="characteristicUUID" value="f000aa01-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableUUID" value="f000aa02-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableValue" value="0x01" />
+					</dhc:notification>
+				</dhc:notifications>
+			</dhc:notificationFunctionality>
+			<dhc:state class="TemperatureState">
+				<dhc:statevalues>
+					<dhc:statevalue class="TemperatureStateValue" name="">
+						<dhc:param name="unitOfMeasure" value="C" />
+					</dhc:statevalue>
+				</dhc:statevalues>
+			</dhc:state>
+		</dhc:device>
+		<dhc:device class="TemperatureAndHumiditySensor" id="TemperatureAndHumiditySensor_CC2650_1"
+			domoticSystem="Bluetooth+LE" gateway="onboard-ble">
+			<dhc:description>CC2650 Humidity sensor - HDC1000 </dhc:description>
+			<dhc:isIn>TestRoom</dhc:isIn>
+			<dhc:param name="macAddress" value="[Sensor Mac Address]" />
+			<dhc:controlFunctionality class="TemperatureMeasurementFunctionality">
+				<dhc:commands>
+					<dhc:command class="GetTemperatureCommand"
+						name="GetTemperatureCommand_TemperatureAndHumiditySensor_CC2650_1"
+						id="GetTemperatureCommand_TemperatureAndHumiditySensor_CC2650_1">
+						<dhc:param name="realCommandName" value="getTemperature" />
+						<dhc:param name="returnType" value="Measure" />
+					</dhc:command>
+				</dhc:commands>
+			</dhc:controlFunctionality>
+			<dhc:controlFunctionality class="HumidityMeasurementFunctionality">
+				<dhc:commands>
+					<dhc:command class="GetRelativeHumidityCommand"
+						name="GetRelativeHumidityCommand_TemperatureAndHumiditySensor_CC2650_1"
+						id="GetRelativeHumidityCommand_TemperatureAndHumiditySensor_CC2650_1">
+						<dhc:param name="realCommandName" value="getRelativeHumidity" />
+						<dhc:param name="returnType" value="Measure" />
+					</dhc:command>
+				</dhc:commands>
+			</dhc:controlFunctionality>
+			<dhc:notificationFunctionality
+				class="TemperatureMeasurementNotificationFunctionality">
+				<dhc:notifications>
+					<dhc:notification class="TemperatureMeasurementNotification"
+						id="TemperatureMeasurementNotification_TemperatureAndHumiditySensor_CC2650_1">
+						<dhc:param name="nParams" value="2" />
+						<dhc:param name="notificationName" value="newTemperatureValue" />
+						<dhc:param name="unitOfMeasure" value="C" />
+						<dhc:param name="notificationParamName" value="temperatureValue"
+							type="Measure" />
+						<dhc:param name="serviceUUID" value="f000aa20-0451-4000-b000-000000000000" />
+						<dhc:param name="characteristicUUID" value="f000aa21-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableUUID" value="f000aa22-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableValue" value="0x01" />
+					</dhc:notification>
+				</dhc:notifications>
+			</dhc:notificationFunctionality>
+			<dhc:notificationFunctionality
+				class="HumidityMeasurementNotificationFunctionality">
+				<dhc:notifications>
+					<dhc:notification class="HumidityMeasurementNotification"
+						id="HumidityMeasurementNotification_TemperatureAndHumiditySensor_CC2650_1">
+						<dhc:param name="nParams" value="2" />
+						<dhc:param name="notificationName" value="changedRelativeHumidity" />
+						<dhc:param name="unitOfMeasure" value="%" />
+						<dhc:param name="notificationParamName" value="relativeHumidity"
+							type="Measure" />
+						<dhc:param name="serviceUUID" value="f000aa20-0451-4000-b000-000000000000" />
+						<dhc:param name="characteristicUUID" value="f000aa21-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableUUID" value="f000aa22-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableValue" value="0x01" />
+					</dhc:notification>
+				</dhc:notifications>
+			</dhc:notificationFunctionality>
+			<dhc:state class="TemperatureState">
+				<dhc:statevalues>
+					<dhc:statevalue class="TemperatureStateValue" name="">
+						<dhc:param name="unitOfMeasure" value="C" />
+					</dhc:statevalue>
+				</dhc:statevalues>
+			</dhc:state>
+			<dhc:state class="HumidityMeasurementState">
+				<dhc:statevalues>
+					<dhc:statevalue class="HumidityStateValue" name="">
+						<dhc:param name="unitOfMeasure" value="%" />
+					</dhc:statevalue>
+				</dhc:statevalues>
+			</dhc:state>
+		</dhc:device>
+		<dhc:device class="CC2650SensorTag" id="CC2650_1"
+			domoticSystem="Bluetooth+LE" gateway="onboard-ble">
+			<dhc:description>CC2650 Sensor Tag </dhc:description>
+			<dhc:isIn>TestRoom</dhc:isIn>
+			<dhc:param name="macAddress" value="[Sensor Mac Address]" />
+			<dhc:controlFunctionality class="OnOffFunctionality">
+				<dhc:commands>
+					<dhc:command class="OnCommand" name="OnCommand_CC2650_1"
+						id="OnCommand_CC2650_1">
+						<dhc:param name="realCommandName" value="on" />
+					</dhc:command>
+					<dhc:command class="OffCommand" name="OffCommand_CC2650_1"
+						id="OffCommand_CC2650_1">
+						<dhc:param name="realCommandName" value="off" />
+					</dhc:command>
+				</dhc:commands>
+			</dhc:controlFunctionality>
+			<!-- query functionalities -->
+			<dhc:controlFunctionality
+				class="MultipleTemperatureMeasurementFunctionality">
+				<dhc:commands>
+					<dhc:command class="GetTemperatureMCommand" name="GetTemperatureCommand_CC2650_1"
+						id="GetTemperatureCommand_CC2650_1">
+						<dhc:param name="realCommandName" value="getTemperatureFrom" />
+						<dhc:param name="nParams" value="1" />
+						<dhc:param name="commandParamName" value="sensorURI" />
+						<dhc:param name="returnType" value="Measure" />
+					</dhc:command>
+				</dhc:commands>
+			</dhc:controlFunctionality>
+			<dhc:controlFunctionality class="HumidityMeasurementFunctionality">
+				<dhc:commands>
+					<dhc:command class="GetRelativeHumidityCommand"
+						name="GetRelativeHumidityCommand_CC2650_1" id="GetRelativeHumidityCommand_CC2650_1">
+						<dhc:param name="realCommandName" value="getRelativeHumidity" />
+						<dhc:param name="returnType" value="Measure" />
+					</dhc:command>
+				</dhc:commands>
+			</dhc:controlFunctionality>
+			<dhc:controlFunctionality class="LightSensingFunctionality">
+				<dhc:commands>
+					<dhc:command class="GetLuminanceCommand" name="GetLuminanceCommand_CC2650_1"
+						id="GetLuminanceCommand_CC2650_1">
+						<dhc:param name="realCommandName" value="getLuminance" />
+						<dhc:param name="returnType" value="Measure" />
+					</dhc:command>
+				</dhc:commands>
+			</dhc:controlFunctionality>
+			<dhc:controlFunctionality class="PressureMeasurementFunctionality">
+				<dhc:commands>
+					<dhc:command class="GetPressureCommand" name="GetPressureCommand_CC2650_1"
+						id="GetPressureCommand_CC2650_1">
+						<dhc:param name="realCommandName" value="getPressure" />
+						<dhc:param name="returnType" value="Measure" />
+					</dhc:command>
+				</dhc:commands>
+			</dhc:controlFunctionality>
+			<!-- Notification functionalities -->
+			<dhc:notificationFunctionality class="ButtonMNotificationFunctionality">
+				<dhc:notifications>
+					<dhc:notification class="PressedMNotification"
+						id="PressedMNotification_button1_CC2650_1">
+						<dhc:param name="nParams" value="1" />
+						<dhc:param name="notificationName" value="pressed" />
+						<dhc:param name="notificationParamName" value="buttonID"
+							type="String" />
+						<dhc:param name="buttonID" value="B1" />
+					</dhc:notification>
+					<dhc:notification class="PressedMNotification"
+						id="PressedMNotification_button2_CC2650_1">
+						<dhc:param name="nParams" value="1" />
+						<dhc:param name="notificationName" value="pressed" />
+						<dhc:param name="notificationParamName" value="buttonID"
+							type="String" />
+						<dhc:param name="buttonID" value="B2" />
+					</dhc:notification>
+				</dhc:notifications>
+			</dhc:notificationFunctionality>
+			<dhc:notificationFunctionality
+				class="MultipleTemperatureMeasurementNotificationFunctionality">
+				<dhc:notifications>
+					<dhc:notification class="TemperatureMeasurementNotification"
+						id="TemperatureMeasurementNotification_CC2650_1">
+						<dhc:param name="nParams" value="1" />
+						<dhc:param name="notificationName" value="newTemperatureValue" />
+						<dhc:param name="unitOfMeasure" value="C" />
+						<dhc:param name="notificationParamName" value="temperatureValue"
+							type="Measure" />
+						<dhc:param name="sensorID" value="IRSensor-Ambient" />
+						<dhc:param name="serviceUUID" value="f000aa00-0451-4000-b000-000000000000" />
+						<dhc:param name="characteristicUUID" value="f000aa01-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableUUID" value="f000aa02-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableValue" value="0x01" />
+					</dhc:notification>
+					<dhc:notification class="TemperatureMeasurementNotification"
+						id="TemperatureMeasurementNotification_CC2650_1">
+						<dhc:param name="nParams" value="1" />
+						<dhc:param name="notificationName" value="newTemperatureValue" />
+						<dhc:param name="unitOfMeasure" value="C" />
+						<dhc:param name="notificationParamName" value="temperatureValue"
+							type="Measure" />
+						<dhc:param name="sensorID" value="IRSensor-Object" />
+						<dhc:param name="serviceUUID" value="f000aa00-0451-4000-b000-000000000000" />
+						<dhc:param name="characteristicUUID" value="f000aa01-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableUUID" value="f000aa02-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableValue" value="0x01" />
+					</dhc:notification>
+					<dhc:notification class="TemperatureMeasurementNotification"
+						id="TemperatureMeasurementNotification_CC2650_1">
+						<dhc:param name="nParams" value="1" />
+						<dhc:param name="notificationName" value="newTemperatureValue" />
+						<dhc:param name="unitOfMeasure" value="C" />
+						<dhc:param name="notificationParamName" value="temperatureValue"
+							type="Measure" />
+						<dhc:param name="sensorID" value="HumiditySensor" />
+						<dhc:param name="serviceUUID" value="f000aa20-0451-4000-b000-000000000000" />
+						<dhc:param name="characteristicUUID" value="f000aa21-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableUUID" value="f000aa22-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableValue" value="0x01" />
+					</dhc:notification>
+					<dhc:notification class="TemperatureMeasurementNotification"
+						id="TemperatureMeasurementNotification_CC2650_1">
+						<dhc:param name="nParams" value="1" />
+						<dhc:param name="notificationName" value="newTemperatureValue" />
+						<dhc:param name="unitOfMeasure" value="C" />
+						<dhc:param name="notificationParamName" value="temperatureValue"
+							type="Measure" />
+						<dhc:param name="sensorID" value="PressureSensor" />
+						<dhc:param name="serviceUUID" value="f000aa40-0451-4000-b000-000000000000" />
+						<dhc:param name="characteristicUUID" value="f000aa41-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableUUID" value="f000aa42-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableValue" value="0x01" />
+					</dhc:notification>
+				</dhc:notifications>
+			</dhc:notificationFunctionality>
+			<dhc:notificationFunctionality
+				class="HumidityMeasurementNotificationFunctionality">
+				<dhc:notifications>
+					<dhc:notification class="HumidityMeasurementNotification"
+						id="HumidityMeasurementNotification_CC2650_1">
+						<dhc:param name="nParams" value="1" />
+						<dhc:param name="notificationName" value="changedRelativeHumidity" />
+						<dhc:param name="unitOfMeasure" value="%" />
+						<dhc:param name="notificationParamName" value="relativeHumidity"
+							type="Measure" />
+						<dhc:param name="serviceUUID" value="f000aa20-0451-4000-b000-000000000000" />
+						<dhc:param name="characteristicUUID" value="f000aa21-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableUUID" value="f000aa22-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableValue" value="0x01" />
+					</dhc:notification>
+				</dhc:notifications>
+			</dhc:notificationFunctionality>
+			<dhc:notificationFunctionality class="LuminosityNotificationFunctionality">
+				<dhc:notifications>
+					<dhc:notification class="LuminosityMeasurementNotification"
+						id="LuminosityMeasurementNotification_QuadSensor_91">
+						<dhc:param name="nParams" value="1" />
+						<dhc:param name="notificationName" value="newLuminosityValue" />
+						<dhc:param name="unitOfMeasure" value="Lux" />
+						<dhc:param name="notificationParamName" value="luminosityValue"
+							type="Measure" />
+						<dhc:param name="serviceUUID" value="f000aa70-0451-4000-b000-000000000000" />
+						<dhc:param name="characteristicUUID" value="f000aa71-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableUUID" value="f000aa72-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableValue" value="0x01" />
+					</dhc:notification>
+				</dhc:notifications>
+			</dhc:notificationFunctionality>
+			<dhc:notificationFunctionality
+				class="PressureMeasurementNotificationFunctionality">
+				<dhc:notifications>
+					<dhc:notification class="PressureMeasurementNotification"
+						id="PressureMeasurementNotification_CC2650_1">
+						<dhc:param name="nParams" value="1" />
+						<dhc:param name="notificationName" value="newPressureValue" />
+						<dhc:param name="unitOfMeasure" value="%" />
+						<dhc:param name="notificationParamName" value="pressureValue"
+							type="Measure" />
+						<dhc:param name="serviceUUID" value="f000aa40-0451-4000-b000-000000000000" />
+						<dhc:param name="characteristicUUID" value="f000aa41-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableUUID" value="f000aa42-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableValue" value="0x01" />
+					</dhc:notification>
+				</dhc:notifications>
+			</dhc:notificationFunctionality>
+			<dhc:notificationFunctionality
+				class="TridimensionalAccelerationNotificationFunctionality">
+				<dhc:notifications>
+					<dhc:notification class="TridimensionalAccelerationNotification"
+						id="TridimensionalAccelerationNotification_CC2650_1">
+						<dhc:param name="nParams" value="3" />
+						<dhc:param name="notificationName" value="new3DAccelerationValue" />
+						<dhc:param name="unitOfMeasure" value="N" />
+						<dhc:param name="notificationParamName" value="accX"
+							type="Measure" />
+						<dhc:param name="notificationParamName" value="accY"
+							type="Measure" />
+						<dhc:param name="notificationParamName" value="accZ"
+							type="Measure" />
+						<dhc:param name="serviceUUID" value="f000aa80-0451-4000-b000-000000000000" />
+						<dhc:param name="characteristicUUID" value="f000aa81-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableUUID" value="f000aa82-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableValue" value="0x02ff" />
+					</dhc:notification>
+				</dhc:notifications>
+			</dhc:notificationFunctionality>
+			<dhc:notificationFunctionality
+				class="TridimensionalGyroscopeNotificationFunctionality">
+				<dhc:notifications>
+					<dhc:notification class="TridimensionalGyroscopeNotification"
+						id="TridimensionalGyroscopeNotification_CC2650_1">
+						<dhc:param name="nParams" value="3" />
+						<dhc:param name="notificationName" value="new3DGyroscopeValue" />
+						<dhc:param name="unitOfMeasure" value="N" />
+						<dhc:param name="notificationParamName" value="gyroX"
+							type="Measure" />
+						<dhc:param name="notificationParamName" value="gyroY"
+							type="Measure" />
+						<dhc:param name="notificationParamName" value="gyroZ"
+							type="Measure" />
+						<dhc:param name="serviceUUID" value="f000aa80-0451-4000-b000-000000000000" />
+						<dhc:param name="characteristicUUID" value="f000aa81-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableUUID" value="f000aa82-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableValue" value="0x02ff" />
+					</dhc:notification>
+				</dhc:notifications>
+			</dhc:notificationFunctionality>
+			<dhc:notificationFunctionality
+				class="TridimensionalMagnetometerNotificationFunctionality">
+				<dhc:notifications>
+					<dhc:notification class="TridimensionalMagnetometerNotification"
+						id="TridimensionalMagnetometerNotification_CC2650_1">
+						<dhc:param name="nParams" value="3" />
+						<dhc:param name="notificationName" value="new3DMagnetometerValue" />
+						<dhc:param name="unitOfMeasure" value="N" />
+						<dhc:param name="notificationParamName" value="magX"
+							type="Measure" />
+						<dhc:param name="notificationParamName" value="magY"
+							type="Measure" />
+						<dhc:param name="notificationParamName" value="magZ"
+							type="Measure" />
+						<dhc:param name="serviceUUID" value="f000aa80-0451-4000-b000-000000000000" />
+						<dhc:param name="characteristicUUID" value="f000aa81-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableUUID" value="f000aa82-0451-4000-b000-000000000000" />
+						<dhc:param name="notifyEnableValue" value="0x02ff" />
+					</dhc:notification>
+				</dhc:notifications>
+			</dhc:notificationFunctionality>
+			<dhc:state class="MultipleTemperatureState">
+				<dhc:statevalues>
+					<dhc:statevalue class="MultipleTemperatureStateValue"
+						name="">
+						<dhc:param name="unitOfMeasure" value="C" />
+						<dhc:param name="sensorID" value="IRObject" />
+					</dhc:statevalue>
+					<dhc:statevalue class="MultipleTemperatureStateValue"
+						name="">
+						<dhc:param name="unitOfMeasure" value="C" />
+						<dhc:param name="sensorID" value="IRAmbient" />
+					</dhc:statevalue>
+					<dhc:statevalue class="MultipleTemperatureStateValue"
+						name="">
+						<dhc:param name="unitOfMeasure" value="C" />
+						<dhc:param name="sensorID" value="Humidity" />
+					</dhc:statevalue>
+					<dhc:statevalue class="MultipleTemperatureStateValue"
+						name="">
+						<dhc:param name="unitOfMeasure" value="C" />
+						<dhc:param name="sensorID" value="Pressure" />
+					</dhc:statevalue>
+				</dhc:statevalues>
+			</dhc:state>
+			<dhc:state class="HumidityMeasurementState">
+				<dhc:statevalues>
+					<dhc:statevalue class="HumidityStateValue" name="">
+						<dhc:param name="unitOfMeasure" value="%" />
+					</dhc:statevalue>
+				</dhc:statevalues>
+			</dhc:state>
+			<dhc:state class="LightIntensityState">
+				<dhc:statevalues>
+					<dhc:statevalue class="LevelStateValue" name="">
+						<dhc:param name="unitOfMeasure" value="Lux" />
+					</dhc:statevalue>
+				</dhc:statevalues>
+			</dhc:state>
+			<dhc:state class="MultipleOnOffState">
+				<dhc:statevalues>
+					<dhc:statevalue class="MultipleOffStateValue" name="off">
+						<dhc:param name="buttonID" value="B1" />
+					</dhc:statevalue>
+					<dhc:statevalue class="MultipleOnStateValue" name="on">
+						<dhc:param name="buttonID" value="B2" />
+					</dhc:statevalue>
+				</dhc:statevalues>
+			</dhc:state>
+			<dhc:state class="PressureState">
+				<dhc:statevalues>
+					<dhc:statevalue class="PressureStateValue" name="">
+						<dhc:param name="unitOfMeasure" value="hPa" />
+					</dhc:statevalue>
+				</dhc:statevalues>
+			</dhc:state>
+			<dhc:state class="TridimensionalAccelerationState">
+				<dhc:statevalues>
+					<dhc:statevalue class="AccelerationStateValue" name="">
+						<dhc:param name="unitOfMeasure" value="g" />
+						<dhc:param name="axisID" value="x" />
+					</dhc:statevalue>
+					<dhc:statevalue class="AccelerationStateValue" name="">
+						<dhc:param name="unitOfMeasure" value="g" />
+						<dhc:param name="axisID" value="y" />
+					</dhc:statevalue>
+					<dhc:statevalue class="AccelerationStateValue" name="">
+						<dhc:param name="unitOfMeasure" value="g" />
+						<dhc:param name="axisID" value="z" />
+					</dhc:statevalue>
+				</dhc:statevalues>
+			</dhc:state>
+			<dhc:state class="TridimensionalGyroscopeState">
+				<dhc:statevalues>
+					<dhc:statevalue class="GyroscopeStateValue" name="">
+						<dhc:param name="unitOfMeasure" value="deg" />
+						<dhc:param name="axisID" value="x" />
+					</dhc:statevalue>
+					<dhc:statevalue class="GyroscopeStateValue" name="">
+						<dhc:param name="unitOfMeasure" value="deg" />
+						<dhc:param name="axisID" value="y" />
+					</dhc:statevalue>
+					<dhc:statevalue class="GyroscopeStateValue" name="">
+						<dhc:param name="unitOfMeasure" value="deg" />
+						<dhc:param name="axisID" value="z" />
+					</dhc:statevalue>
+				</dhc:statevalues>
+			</dhc:state>
+			<dhc:state class="TridimensionalMagnetometerState">
+				<dhc:statevalues>
+					<dhc:statevalue class="MagnetometerStateValue" name="">
+						<dhc:param name="unitOfMeasure" value="uT" />
+						<dhc:param name="axisID" value="x" />
+					</dhc:statevalue>
+					<dhc:statevalue class="MagnetometerStateValue" name="">
+						<dhc:param name="unitOfMeasure" value="uT" />
+						<dhc:param name="axisID" value="y" />
+					</dhc:statevalue>
+					<dhc:statevalue class="MagnetometerStateValue" name="">
+						<dhc:param name="unitOfMeasure" value="uT" />
+						<dhc:param name="axisID" value="z" />
+					</dhc:statevalue>
+				</dhc:statevalues>
+			</dhc:state>
+		</dhc:device>
+	</dhc:controllables>
+</dhc:dogHomeConfiguration>
